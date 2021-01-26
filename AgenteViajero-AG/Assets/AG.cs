@@ -90,32 +90,23 @@ public class AG : MonoBehaviour{
             float distancia = 0; //variable diastancia 
             for (int k = 0; k < Nodos.Length - 1; k++) //Se cuenta desde cada nodo hasta su proximo destino
             {
-                distancia += Vector3.Distance(poblacion[i].Nodos[k], poblacion[i].Nodos[k + 1]); // Cuenta las distacias recorridas  
+                distancia += Vector3.Distance(poblacion[i].Nodos[k], poblacion[i].Nodos[k + 1]); // Cuenta las distacias recorridas 
+                print("Individuo: " + i + " Distancia: " + distancia);
             }
             Individuo2 ind = poblacion[i]; // Se crea un nuevo individuo
             ind.Puntaje = 1f / distancia; //Se saca el puntaje de cada distancia recorrida (NOTA: el puntajes es minimo cuando la distancia es mayor)
             poblacion[i] = ind;// se le asigna el puntaje
+            print("**Individuo: " + i + "** -> Distancia final= " + poblacion[i].Puntaje);
         }
     }
     
     //FUNCIÓN ORGANIZAR
     void Organizar() 
     {
-        //Organizar mediante el método burbuja  
-        bool sw = false;
-        while (!sw)
-        {
-            sw = true;
-            for (int i = 1; i < poblacion.Count; i++)
-            {
-                if (poblacion[i].Puntaje > poblacion[i - 1].Puntaje)
-                {
-                    Individuo2 ind = poblacion[i];
-                    poblacion[i] = poblacion[i - 1];
-                    poblacion[i - 1] = ind;
-                    sw = false;
-                }
-            }
+        poblacion.Sort((s1, s2) => s1.Puntaje.CompareTo(s2.Puntaje));
+        poblacion.Reverse();
+        for(int i = 0; i<=poblacion.Count-1; i++) {
+            print("Posición " + i + " = " + 1f/poblacion[i].Puntaje);
         }
     }
 
@@ -198,3 +189,21 @@ public class AG : MonoBehaviour{
 
 
 }
+/*
+//Organizar mediante el método burbuja  
+        bool sw = false;
+        while (!sw)
+        {
+            sw = true;
+            for (int i = 1; i < poblacion.Count; i++)
+            {
+                if (poblacion[i].Puntaje > poblacion[i - 1].Puntaje)
+                {
+                    Individuo2 ind = poblacion[i];
+                    poblacion[i] = poblacion[i - 1];
+                    poblacion[i - 1] = ind;
+                    sw = false;
+                }
+            }
+        }
+*/
