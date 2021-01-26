@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct Individuo2
-{
+public struct Individuo2{
     public Vector3[] Nodos;
     public float Puntaje;
 }
 
 
-public class Algoritmo2 : MonoBehaviour
-{
+public class AG : MonoBehaviour{
     public Transform[] Nodos;
 
     public List<Individuo2> poblacion = new List<Individuo2>();
