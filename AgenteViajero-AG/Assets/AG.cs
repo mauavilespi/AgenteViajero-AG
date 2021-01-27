@@ -13,12 +13,12 @@ public class AG : MonoBehaviour{
 
     public List<Individuo2> poblacion = new List<Individuo2>(); //Lista de individuos 
 
-    public int Iteraciones = 50;//número de iteraciones
+    public int Generaciones = 50;//número de iteraciones
     IEnumerator Start() 
     {
         lr = GetComponent<LineRenderer>();
         Iniciar();
-        for (int i = 0; i < Iteraciones; i++)
+        for (int i = 0; i < Generaciones; i++)
         {
             Probar(); //Prueba las distancias recorridas
             Organizar(); //Organiza el recorrido 
@@ -129,11 +129,6 @@ public class AG : MonoBehaviour{
             Individuo2 hijo = new Individuo2(); //Se crea el hijo 
             hijo.Nodos = new Vector3[Nodos.Length];
 
-            // 4231
-            // 2413
-            // 4231
-
-
             //Se elige una subruta del padre 1
             int Inicio = Random.Range(0, Nodos.Length - 2);
             int final = Random.Range(Inicio, Nodos.Length);
@@ -190,21 +185,3 @@ public class AG : MonoBehaviour{
 
 
 }
-/*
-//Organizar mediante el método burbuja  
-        bool sw = false;
-        while (!sw)
-        {
-            sw = true;
-            for (int i = 1; i < poblacion.Count; i++)
-            {
-                if (poblacion[i].Puntaje > poblacion[i - 1].Puntaje)
-                {
-                    Individuo2 ind = poblacion[i];
-                    poblacion[i] = poblacion[i - 1];
-                    poblacion[i - 1] = ind;
-                    sw = false;
-                }
-            }
-        }
-*/

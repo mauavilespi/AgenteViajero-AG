@@ -6,6 +6,8 @@ public struct Individuo{
     public Vector3[] Nodos_Recorridos; //Lista de XYZ para representar posición de los nodos 
     public float Puntaje; //Distancia obtenida
     public float Fitness;
+    public float Proba_Sel;
+    public float Proba_Sel_Acumulada;
 }
 
 public class NewAG : MonoBehaviour{
@@ -15,8 +17,7 @@ public class NewAG : MonoBehaviour{
     public List<Individuo> Poblacion = new List<Individuo>(); //Lista de individuos 
 
     //Generaciones ***Pedir mediante inputField***
-    public int Generaciones;
-    public GameObject Generacion;
+    public int Generaciones=0;
 
     //Individuos **Pedir mediante inputField***
     public int Num_Individuos = 0;
@@ -26,9 +27,10 @@ public class NewAG : MonoBehaviour{
         CrearPoblacion();
         for (int j=0; j<Generaciones; j++) {
             Aptitud();
-            Ordenar();
+            //Ordenar();
             yield return new WaitForSeconds(0.2f); //Tiempo de espera antes de mostrar el resultado
             MostrarCaminos();
+            Seleccion();
             Cruza();
         }
         print("Distancia Mínima: " + Poblacion[0].Puntaje);
@@ -93,7 +95,7 @@ public class NewAG : MonoBehaviour{
             print("**Individuo: " + i + "** || Distancia final= " + Poblacion[i].Puntaje + "|| Resultado Aptitud = "+Poblacion[i].Fitness);
         }
     }
-
+    /*
     //Función para ordenar los mejores resultados
     void Ordenar() {
         Poblacion.Sort((s1,s2) => s1.Puntaje.CompareTo(s2.Puntaje));
@@ -101,7 +103,7 @@ public class NewAG : MonoBehaviour{
             print("Posición " + i + " = " + Poblacion[i].Puntaje);
         }
     }
-
+    */
 
     //Función para mostrar caminos
     void MostrarCaminos() {
@@ -109,14 +111,33 @@ public class NewAG : MonoBehaviour{
         line_ren.SetPositions(Poblacion[0].Nodos_Recorridos);
     }
 
-
     //Operación Selección
+    void Seleccion() {
+        float suma_aptitud = 0;
+        float proba_sel = 0;
+
+        //Suma función fitness
+        for (int i=0; i<Poblacion.Count; i++) {
+            suma_aptitud += Poblacion[i].Fitness;
+        }
+        print("*****Suma Aptitud***** = " + suma_aptitud);
+
+        //Probabilidad de selección
+        for (int j = 0; j < Poblacion.Count; j++) {
+            proba_sel = Poblacion[j].Fitness / suma_aptitud;
+            Individuo tmp = Poblacion[j];
+            tmp.Proba_Sel = proba_sel;
+            Poblacion[j] = tmp;
+            print("***Probabilidad de selección " + j + " = " + Poblacion[j].Proba_Sel);
+        }
+        
+
+    }
+
+
+    //Operación Cruza
     void Cruza() {
 
     }
 
-    // Update is called once per frame
-    void Update(){
-        
-    }
 }
