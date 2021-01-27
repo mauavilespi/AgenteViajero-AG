@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 324622748}
   - component: {fileID: 324622747}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Inicio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -382,7 +382,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 324622748}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 519420028}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &324622748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,7 +786,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d0bfc5ce8380d34c9d7fe0167e1fac4, type: 3}
   m_Name: 
@@ -788,7 +799,7 @@ MonoBehaviour:
   - {fileID: 1279595777}
   - {fileID: 55177456}
   Iteraciones: 50
-  CantidadDeIndividuos: 8
+  CantidadDeIndividuos: 10
   RatioDeMantenimiento: 40
   ProbabilidadDeMutacion: 20
 --- !u!20 &519420031
@@ -960,7 +971,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23d913ee32e5b8b4193f9dd5c9c2a0d8, type: 3}
   m_Name: 
@@ -973,6 +984,7 @@ MonoBehaviour:
   - {fileID: 1279595777}
   - {fileID: 55177456}
   Generaciones: 5
+  Generacion: {fileID: 0}
   Num_Individuos: 5
 --- !u!1 &562304799
 GameObject:
@@ -2344,7 +2356,7 @@ GameObject:
   - component: {fileID: 1721774349}
   - component: {fileID: 1721774348}
   m_Layer: 5
-  m_Name: Generaciones
+  m_Name: Generacion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

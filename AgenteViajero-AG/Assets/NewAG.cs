@@ -15,7 +15,8 @@ public class NewAG : MonoBehaviour{
     public List<Individuo> Poblacion = new List<Individuo>(); //Lista de individuos 
 
     //Generaciones ***Pedir mediante inputField***
-    public int Generaciones = 0;
+    public int Generaciones;
+    public GameObject Generacion;
 
     //Individuos **Pedir mediante inputField***
     public int Num_Individuos = 0;
