@@ -35,9 +35,10 @@ public class AG : MonoBehaviour{
     //FUNCIÓN MOSTRAR
     void Mostrar() 
     {
-        lr.positionCount = Nodos.Length + 1;
+        lr.positionCount = Nodos.Length;
         lr.SetPositions(poblacion[0].Nodos); //posiciones de los nodos 
-        lr.SetPosition(Nodos.Length, poblacion[0].Nodos[0]); //pocicion final o posicion que cierra el camino         
+      
+        
     }
 
     public int CantidadDeIndividuos = 10;

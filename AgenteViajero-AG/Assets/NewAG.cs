@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public struct Individuo{
-    public Vector2[] Nodos_Recorridos; //Lista de XY para representar posición de los nodos 
-    public float Puntaje;
+    public Vector3[] Nodos_Recorridos; //Lista de XYZ para representar posición de los nodos 
+    public float Puntaje; //Distancia obtenida
+    public float Fitness;
 }
 
 public class NewAG : MonoBehaviour{
@@ -20,31 +21,36 @@ public class NewAG : MonoBehaviour{
     public int Num_Individuos = 0;
 
     IEnumerator Start(){
-        //line_ren = GetComponent<LineRenderer>();
+        line_ren = GetComponent<LineRenderer>();
         CrearPoblacion();
         for (int j=0; j<Generaciones; j++) {
             Aptitud();
             Ordenar();
             yield return new WaitForSeconds(0.2f); //Tiempo de espera antes de mostrar el resultado
             MostrarCaminos();
+            Cruza();
         }
+        print("Distancia Mínima: " + Poblacion[0].Puntaje);
         
     }
+    LineRenderer line_ren;
 
     //Función Creación de población
     void CrearPoblacion() {
-        for (int i = 0; i<Num_Individuos; i++) {
+        for (int i = 0; i < Num_Individuos; i++) {
             Individuo ind = new Individuo(); //Creación de la estructura Individuo
 
             List<Transform> usables = new List<Transform>(); // Se crea una nueva lista de objetos
             usables.AddRange(Nodos); // Se agregan los Nodos (puntos)
             usables = OrdenAleatorio<Transform>(usables); // Pone los nodos de forma aleatoria
 
-            List<Vector2> Nodos_Individuo = new List<Vector2>(); //Nueva lista de tipo Vector2 (X,Y)
+            List<Vector3> Nodos_Individuo = new List<Vector3>(); //Nueva lista de tipo Vector3 (X,Y,Z)
 
             for (int j = 0; j < usables.Count; j++) { //Pasamos los datos de los nodos aleatorios a una lista con sus datos de posición 
                 Nodos_Individuo.Add(usables[j].position); //Agregamos las posiciones de los nodos
             }
+
+            Nodos_Individuo.Add(usables[0].position); //Agregamos al final el nodo de inicio para hacer un ciclo
 
             ind.Nodos_Recorridos = Nodos_Individuo.ToArray(); //Agregamos en la estructura esta lista de posiciones de nodos aleatorios
             Poblacion.Add(ind); //Agregamos el individuo creado a la lista de la Población
@@ -75,14 +81,15 @@ public class NewAG : MonoBehaviour{
     void Aptitud() {
         for (int i=0; i<Poblacion.Count; i++) { //Recorremos cada individuo de la población
             float distancia = 0; //Variable donde se llevará el conteo de distancia entre los puntos
-            for (int j=0; j<Nodos.Length-1; j++) { //Recorremos la cantidad de nodos que tiene nuestro programa
+            for (int j=0; j<Nodos.Length; j++) { //Recorremos la cantidad de nodos que tiene nuestro programa
                 distancia += Vector2.Distance(Poblacion[i].Nodos_Recorridos[j], Poblacion[i].Nodos_Recorridos[j + 1]);
                 print("Individuo: " + i + " Distancia: " + distancia); //Imprimir cómo va sumándose la distancia
             }
             Individuo tmp = Poblacion[i];
             tmp.Puntaje = distancia;
+            tmp.Fitness = 100 - distancia;
             Poblacion[i] = tmp;
-            print("**Individuo: " + i + "** -> Distancia final= " + Poblacion[i].Puntaje);
+            print("**Individuo: " + i + "** || Distancia final= " + Poblacion[i].Puntaje + "|| Resultado Aptitud = "+Poblacion[i].Fitness);
         }
     }
 
@@ -97,9 +104,14 @@ public class NewAG : MonoBehaviour{
 
     //Función para mostrar caminos
     void MostrarCaminos() {
-        //line_ren.positionCount = Nodos.Length + 1;
-        //line_ren.SetPositions(Poblacion[0].Nodos_Recorridos);
-        //line_ren.SetPosition(Nodos.Length, Poblacion[0].Nodos_Recorridos[0]);
+        line_ren.positionCount = Nodos.Length+1;
+        line_ren.SetPositions(Poblacion[0].Nodos_Recorridos);
+    }
+
+
+    //Operación Selección
+    void Cruza() {
+
     }
 
     // Update is called once per frame
